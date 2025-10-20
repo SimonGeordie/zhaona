@@ -17,11 +17,21 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from .singlepage import views as singlepage_views
+from .scrollpage import views as scrollpage_views
+from .infinitescroll import views as infinitescroll_views
+from .cssanimation import views as cssanimation_views
+from .additionapp import views as additionapp_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('student/', views.student_info, name='student_info'),
     path('student/text/', views.student_info_text, name='student_info_text'),
     path('singlepage/', singlepage_views.singlepage_view),
-    path('', views.student_info, name='home'),  # 设置首页为学生信息页面
+    path('scroll/', scrollpage_views.scroll_view, name='scroll_view'),
+    path('infinitescroll/', infinitescroll_views.index, name='infinitescroll_index'),
+    path('infinitescroll/posts', infinitescroll_views.posts, name='infinitescroll_posts'),
+    path('cssanimation/', cssanimation_views.animate_view, name='cssanimation_animate'),
+    path('cssanimation/slide/', cssanimation_views.slide_view, name='cssanimation_slide'),
+    path('addition/', additionapp_views.addition_view, name='addition_calculator'),
+    path('', views.home, name='home'),  # 设置首页为项目汇总页面
 ]

@@ -1,0 +1,81 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>数字滚动页面</title> 
+    <style> 
+        body { 
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            transition: background 0.3s; 
+            background: white;
+        }
+        
+        .number-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .number-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .number-item:last-child {
+            border-bottom: none;
+        }
+        
+        .bottom-indicator {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style> 
+</head> 
+<body> 
+    <div class="number-container">
+        <h1 style="text-align: center; margin-bottom: 30px;">数字1-100滚动页面</h1>
+        <div id="numbers">
+            <!-- 数字将通过JavaScript动态生成 -->
+        </div>
+        <div class="bottom-indicator" id="bottomIndicator">继续向下滚动查看效果</div>
+    </div>
+
+    <script> 
+        // Function to generate numbers 1-100
+        function generateNumbers() { 
+            const container = document.getElementById('numbers');
+            for (let i = 1; i <= 100; i++) { 
+                const div = document.createElement('div'); 
+                div.className = 'number-item';
+                div.textContent = i; // Set text to the current number 
+                container.appendChild(div); 
+            } 
+        } 
+ 
+        // Event listener for scrolling 
+        window.onscroll = () => { 
+            // Check if we're at the bottom 
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) { 
+                // Change color to green 
+                document.body.style.background = '#4CAF50'; 
+                document.getElementById('bottomIndicator').textContent = '已到达页面底部 - 背景变为绿色';
+                document.getElementById('bottomIndicator').style.color = '#fff';
+            } else { 
+                // Change color to white 
+                document.body.style.background = 'white'; 
+                document.getElementById('bottomIndicator').textContent = '继续向下滚动查看效果';
+                document.getElementById('bottomIndicator').style.color = '#666';
+            } 
+        }; 
+ 
+        // Generate numbers when the window loads 
+        window.onload = generateNumbers; 
+    </script> 
+</body> 
+</html>

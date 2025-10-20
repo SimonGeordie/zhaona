@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>无限滚动示例</title>
+    <style>
+        .post {
+            background-color: #77dd11;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        body {
+            padding-bottom: 50px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 20px 0;
+        }
+        
+        #posts {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>无限滚动示例</h1>
+    
+    <!-- 控制面板 -->
+    <div id="control-panel" style="text-align: center; margin: 20px 0; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
+        <div style="margin-bottom: 10px;">
+            <button id="auto-scroll-btn" style="padding: 10px 20px; margin: 0 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                开始自动滑动
+            </button>
+            <button id="stop-scroll-btn" style="padding: 10px 20px; margin: 0 10px; background-color: #f44336; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">
+                停止自动滑动
+            </button>
+        </div>
+        <div id="double-click-hint-text" style="color: #666; font-size: 14px; margin-top: 5px; display: none;">
+            双击页面就停止自动滑动
+        </div>
+        <button id="hide-posts-btn" style="padding: 10px 20px; margin: 0 10px; background-color: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            隐藏帖子
+        </button>
+        <button id="show-posts-btn" style="padding: 10px 20px; margin: 0 10px; background-color: #FF9800; color: white; border: none; border-radius: 4px; cursor: pointer; display: none;">
+            显示帖子
+        </button>
+        <label style="margin-left: 20px;">
+            滑动速度: 
+            <input type="range" id="scroll-speed" min="1" max="10" value="5" style="vertical-align: middle;">
+            <span id="speed-value">5</span>
+        </label>
+    </div>
+    
+    <div id="posts"></div>
+    <div id="loading" class="loading" style="display: none;">正在加载更多内容...</div>
+    
+    <script src="{% static 'infinitescroll/script.js' %}"></script>
+</body>
+</html>

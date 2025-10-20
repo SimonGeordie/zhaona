@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Animation - 放大缩小效果</title>
+    <style>
+        @keyframes grow {
+            from {
+                font-size: 20px;
+                color: #ff6b6b;
+                transform: scale(1);
+            }
+            to {
+                font-size: 100px;
+                color: #4ecdc4;
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes shrink {
+            from {
+                font-size: 100px;
+                color: #4ecdc4;
+                transform: scale(1.2);
+            }
+            to {
+                font-size: 20px;
+                color: #ff6b6b;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                font-size: 20px;
+                color: #ff6b6b;
+                transform: scale(1);
+            }
+            50% {
+                font-size: 100px;
+                color: #4ecdc4;
+                transform: scale(1.2);
+            }
+            100% {
+                font-size: 20px;
+                color: #ff6b6b;
+                transform: scale(1);
+            }
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 100px 0;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .grow-animation {
+            animation-name: grow;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+        }
+        
+        .shrink-animation {
+            animation-name: shrink;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+        }
+        
+        .pulse-animation {
+            animation-name: pulse;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            background-color: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45b7aa;
+        }
+        
+        .info {
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info">
+            <h2>CSS 放大缩小动画演示</h2>
+            <p>点击下方按钮查看不同的动画效果</p>
+        </div>
+        
+        <div class="controls">
+            <button onclick="startGrow()">放大动画</button>
+            <button onclick="startShrink()">缩小动画</button>
+            <button onclick="startPulse()">脉冲动画</button>
+            <button onclick="resetAnimation()">重置</button>
+        </div>
+        
+        <h1 id="animated-text">Welcome!</h1>
+        
+        <div class="info">
+            <p>当前动画效果：<span id="current-animation">无</span></p>
+        </div>
+    </div>
+
+    <script>
+        const animatedText = document.getElementById('animated-text');
+        const currentAnimation = document.getElementById('current-animation');
+        
+        function startGrow() {
+            animatedText.className = 'grow-animation';
+            currentAnimation.textContent = '放大效果';
+        }
+        
+        function startShrink() {
+            animatedText.className = 'shrink-animation';
+            currentAnimation.textContent = '缩小效果';
+        }
+        
+        function startPulse() {
+            animatedText.className = 'pulse-animation';
+            currentAnimation.textContent = '脉冲效果（持续）';
+        }
+        
+        function resetAnimation() {
+            animatedText.className = '';
+            currentAnimation.textContent = '无';
+            // 重置样式
+            animatedText.style.fontSize = '20px';
+            animatedText.style.color = '#ff6b6b';
+            animatedText.style.transform = 'scale(1)';
+        }
+        
+        // 页面加载时显示默认样式
+        window.onload = function() {
+            resetAnimation();
+        };
+    </script>
+</body>
+</html>

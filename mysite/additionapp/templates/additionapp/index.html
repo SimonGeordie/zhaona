@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Addition Calculator</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .calculator-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .problem {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+        }
+        
+        .score {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        .feedback {
+            font-size: 1.1em;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .new-problem-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .new-problem-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .instructions {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
+        
+        .header {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function AdditionCalculator() {
+            const [state, setState] = useState({
+                num1: Math.floor(Math.random() * 10) + 1,
+                num2: Math.floor(Math.random() * 10) + 1,
+                response: "",
+                score: 0,
+                feedback: "",
+                isCorrect: null,
+                answered: false  // 标记当前题目是否已回答过
+            });
+
+            const correctAnswer = state.num1 + state.num2;
+
+            const handleInputChange = (event) => {
+                setState(prevState => ({
+                    ...prevState,
+                    response: event.target.value,
+                    feedback: "",
+                    isCorrect: null,
+                    answered: false
+                }));
+            };
+
+            const checkAnswer = () => {
+                const userAnswer = parseInt(state.response);
+                if (isNaN(userAnswer)) {
+                    setState(prevState => ({
+                        ...prevState,
+                        feedback: "请输入有效的数字！",
+                        isCorrect: false
+                    }));
+                    return;
+                }
+
+                if (userAnswer === correctAnswer) {
+                    // 只有在当前题目尚未回答过时才计分
+                    if (!state.answered) {
+                        setState(prevState => ({
+                            ...prevState,
+                            score: prevState.score + 1,
+                            feedback: "✓ 回答正确！",
+                            isCorrect: true,
+                            answered: true  // 标记为已回答
+                        }));
+                    } else {
+                        setState(prevState => ({
+                            ...prevState,
+                            feedback: "✓ 回答正确！（已计分）",
+                            isCorrect: true
+                        }));
+                    }
+                } else {
+                    setState(prevState => ({
+                        ...prevState,
+                        feedback: `✗ 回答错误！正确答案是 ${correctAnswer}`,
+                        isCorrect: false
+                    }));
+                }
+            };
+
+            const generateNewProblem = () => {
+                setState(prevState => ({
+                    num1: Math.floor(Math.random() * 10) + 1,
+                    num2: Math.floor(Math.random() * 10) + 1,
+                    response: "",
+                    score: prevState.score,
+                    feedback: "",
+                    isCorrect: null,
+                    answered: false  // 重置已回答状态
+                }));
+            };
+
+            const handleKeyPress = (event) => {
+                if (event.key === 'Enter') {
+                    checkAnswer();
+                }
+            };
+
+            useEffect(() => {
+                if (state.response !== "" && state.isCorrect === null) {
+                    const timer = setTimeout(() => {
+                        checkAnswer();
+                    }, 1000);
+                    return () => clearTimeout(timer);
+                }
+            }, [state.response]);
+
+            return (
+                <div className="calculator-container">
+                    <h1 className="header">加法计算器</h1>
+                    
+                    <div className="problem">
+                        {state.num1} + {state.num2}
+                    </div>
+                    
+                    <input
+                        type="text"
+                        className="input-field"
+                        value={state.response}
+                        onChange={handleInputChange}
+                        onKeyPress={handleKeyPress}
+                        placeholder="输入答案..."
+                        autoFocus
+                    />
+                    
+                    <div className="score">
+                        得分: {state.score}
+                    </div>
+                    
+                    {state.feedback && (
+                        <div className={`feedback ${state.isCorrect ? 'correct' : 'incorrect'}`}>
+                            {state.feedback}
+                        </div>
+                    )}
+                    
+                    <button className="new-problem-btn" onClick={generateNewProblem}>
+                        新题目
+                    </button>
+                    
+                    <div className="instructions">
+                        <p>💡 提示：输入答案后会自动检查，或按回车键立即检查</p>
+                        <p>🎯 目标：尽可能多地答对题目！</p>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<AdditionCalculator />);
+    </script>
+</body>
+</html>

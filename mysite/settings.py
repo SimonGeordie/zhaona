@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mysite.singlepage',
+    'mysite.scrollpage',
+    'mysite.infinitescroll',
+    'mysite.cssanimation',
+    'mysite.additionapp',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +62,10 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR / 'mysite' / 'templates',
             BASE_DIR / 'mysite' / 'singlepage' / 'templates',
+            BASE_DIR / 'mysite' / 'scrollpage' / 'templates',
+            BASE_DIR / 'mysite' / 'infinitescroll' / 'templates',
+            BASE_DIR / 'mysite' / 'cssanimation' / 'templates',
+            BASE_DIR / 'mysite' / 'additionapp' / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -124,6 +132,7 @@ STATIC_URL = 'static/'
 # Additional locations of static files
 STATICFILES_DIRS = [
     BASE_DIR / 'mysite' / 'singlepage' / 'static',
+    BASE_DIR / 'mysite' / 'infinitescroll' / 'static',
 ]
 
 # Default primary key field type

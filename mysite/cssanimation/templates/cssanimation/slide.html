@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Animation - 左右滑动效果</title>
+    <style>
+        @keyframes move-left {
+            from {
+                left: 0%;
+                color: #ff6b6b;
+            }
+            to {
+                left: 50%;
+                color: #4ecdc4;
+            }
+        }
+        
+        @keyframes move-right {
+            from {
+                left: 50%;
+                color: #4ecdc4;
+            }
+            to {
+                left: 0%;
+                color: #ff6b6b;
+            }
+        }
+        
+        @keyframes move-center {
+            from {
+                left: 0%;
+                color: #ff6b6b;
+            }
+            50% {
+                left: 50%;
+                color: #4ecdc4;
+            }
+            to {
+                left: 0%;
+                color: #ff6b6b;
+            }
+        }
+        
+        @keyframes move-pingpong {
+            0% {
+                left: 0%;
+                color: #ff6b6b;
+            }
+            25% {
+                left: 25%;
+                color: #ff9f43;
+            }
+            50% {
+                left: 50%;
+                color: #4ecdc4;
+            }
+            75% {
+                left: 75%;
+                color: #a55eea;
+            }
+            100% {
+                left: 0%;
+                color: #ff6b6b;
+            }
+        }
+        
+        h1 {
+            position: relative;
+            text-align: center;
+            margin: 150px 0;
+            font-family: 'Arial', sans-serif;
+            font-size: 48px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .move-left-animation {
+            animation-name: move-left;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+        }
+        
+        .move-right-animation {
+            animation-name: move-right;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+        }
+        
+        .move-center-animation {
+            animation-name: move-center;
+            animation-duration: 4s;
+            animation-fill-mode: forwards;
+        }
+        
+        .move-pingpong-animation {
+            animation-name: move-pingpong;
+            animation-duration: 6s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            background-color: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45b7aa;
+        }
+        
+        .info {
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            min-height: 400px;
+        }
+        
+        .animation-track {
+            position: relative;
+            height: 100px;
+            margin: 50px 0;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .track-marker {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #4ecdc4;
+        }
+        
+        .marker-0 { left: 0%; }
+        .marker-25 { left: 25%; }
+        .marker-50 { left: 50%; }
+        .marker-75 { left: 75%; }
+        .marker-100 { left: 100%; }
+        
+        .marker-label {
+            position: absolute;
+            top: -25px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info">
+            <h2>CSS 左右滑动动画演示</h2>
+            <p>点击下方按钮查看不同的滑动动画效果</p>
+        </div>
+        
+        <div class="controls">
+            <button onclick="startMoveLeft()">向左滑动</button>
+            <button onclick="startMoveRight()">向右滑动</button>
+            <button onclick="startMoveCenter()">中心往返</button>
+            <button onclick="startPingPong()">乒乓球效果</button>
+            <button onclick="resetAnimation()">重置</button>
+        </div>
+        
+        <div class="animation-track">
+            <div class="track-marker marker-0"><div class="marker-label">0%</div></div>
+            <div class="track-marker marker-25"><div class="marker-label">25%</div></div>
+            <div class="track-marker marker-50"><div class="marker-label">50%</div></div>
+            <div class="track-marker marker-75"><div class="marker-label">75%</div></div>
+            <div class="track-marker marker-100"><div class="marker-label">100%</div></div>
+            
+            <h1 id="animated-text">Welcome!</h1>
+        </div>
+        
+        <div class="info">
+            <p>当前动画效果：<span id="current-animation">无</span></p>
+            <p>位置指示：蓝色竖线标记了0%、25%、50%、75%、100%的位置</p>
+        </div>
+    </div>
+
+    <script>
+        const animatedText = document.getElementById('animated-text');
+        const currentAnimation = document.getElementById('current-animation');
+        
+        function startMoveLeft() {
+            animatedText.className = 'move-left-animation';
+            currentAnimation.textContent = '向左滑动 (0% → 50%)';
+        }
+        
+        function startMoveRight() {
+            animatedText.className = 'move-right-animation';
+            currentAnimation.textContent = '向右滑动 (50% → 0%)';
+        }
+        
+        function startMoveCenter() {
+            animatedText.className = 'move-center-animation';
+            currentAnimation.textContent = '中心往返 (0% → 50% → 0%)';
+        }
+        
+        function startPingPong() {
+            animatedText.className = 'move-pingpong-animation';
+            currentAnimation.textContent = '乒乓球效果 (持续循环)';
+        }
+        
+        function resetAnimation() {
+            animatedText.className = '';
+            currentAnimation.textContent = '无';
+            // 重置样式
+            animatedText.style.left = '0%';
+            animatedText.style.color = '#ff6b6b';
+        }
+        
+        // 页面加载时显示默认样式
+        window.onload = function() {
+            resetAnimation();
+        };
+    </script>
+</body>
+</html>
