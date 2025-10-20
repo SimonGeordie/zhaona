@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from .singlepage import views as singlepage_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('student/', views.student_info, name='student_info'),
     path('student/text/', views.student_info_text, name='student_info_text'),
+    path('singlepage/', singlepage_views.singlepage_view),
     path('', views.student_info, name='home'),  # 设置首页为学生信息页面
 ]

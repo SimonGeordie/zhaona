@@ -1,0 +1,133 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>单页面应用 - 学生信息项目</title> 
+        <style> 
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f5f5f5;
+            }
+            
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            
+            .button-group {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                background-color: #007bff;
+                color: white;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            
+            button:hover {
+                background-color: #0056b3;
+            }
+            
+            button.active {
+                background-color: #28a745;
+            }
+            
+            div.page {
+                display: none;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                background-color: #f8f9fa;
+            }
+            
+            div.page.active {
+                display: block;
+            }
+            
+            h1 {
+                color: #333;
+                margin-top: 0;
+            }
+            
+            .student-info {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+            }
+            
+            .student-info h2 {
+                margin: 0 0 10px 0;
+                font-size: 1.5em;
+            }
+            
+            .student-info p {
+                margin: 5px 0;
+                font-size: 1.1em;
+            }
+        </style> 
+    </head> 
+    <body> 
+        <div class="container">
+            <div class="student-info">
+                <h2>🎓 学生信息</h2>
+                <p><strong>学号：</strong>20231201054</p>
+                <p><strong>姓名：</strong>赵娜</p>
+                <p><strong>班级：</strong>医学信息工程2023班</p>
+            </div>
+            
+            <div class="button-group">
+                <button data-page="page1" class="active">📄 页面一</button>
+                <button data-page="page2">📊 页面二</button>
+                <button data-page="page3">🎯 页面三</button>
+            </div>
+            
+            <div id="page1" class="page active">
+                <h1>欢迎来到页面一</h1>
+                <p>这是单页面应用的第一个页面内容。</p>
+                <p>你可以点击上方的按钮在不同页面之间切换，无需刷新整个页面。</p>
+                <p>这个功能是通过JavaScript操作DOM实现的。</p>
+            </div>
+            
+            <div id="page2" class="page">
+                <h1>页面二内容</h1>
+                <p>这是第二个页面的内容展示。</p>
+                <p>单页面应用（SPA）提供了流畅的用户体验。</p>
+                <ul>
+                    <li>快速页面切换</li>
+                    <li>无需重新加载</li>
+                    <li>更好的用户体验</li>
+                </ul>
+            </div>
+            
+            <div id="page3" class="page">
+                <h1>页面三信息</h1>
+                <p>这是第三个页面的内容。</p>
+                <p>感谢使用这个单页面应用示例！</p>
+                <div style="background: #e9ecef; padding: 15px; border-radius: 5px;">
+                    <h3>技术特点：</h3>
+                    <p>• 使用纯JavaScript实现</p>
+                    <p>• 响应式设计</p>
+                    <p>• 现代化的UI界面</p>
+                    <p>• 集成在Django项目中</p>
+                </div>
+            </div>
+        </div>
+        
+        <script src="/static/singlepage/singlepage.js"></script>
+    </body> 
+</html>
